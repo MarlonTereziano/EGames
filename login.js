@@ -20,7 +20,7 @@ function saveTask(e) {
             alert('Usuário Logado com sucesso!');
             //retornar para home    
             console.log(res);
-            // window.location.href = "http://localhost:5500/";
+            window.location.href = "http://localhost:5500/";
             localStorage.setItem('token', res['token']);
         }
     };
