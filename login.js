@@ -17,18 +17,19 @@ function saveTask(e) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var res = JSON.parse(xhr.response);
-            alert('Logado');
+            alert('Usuário Logado com sucesso!');
+            //retornar para home    
             console.log(res);
+            // window.location.href = "http://localhost:5500/";
+            localStorage.setItem('token', res['token']);
         }
     };
 
     xhr.send(JSON.stringify(task));
 
 
-
-
     // // Reset form-Task
-    // document.getElementById('form-Task').reset();
-    //  e.preventDefault();
+    document.getElementById('form-Task').reset();
+     e.preventDefault();
 
 }
