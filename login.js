@@ -20,16 +20,20 @@ function saveTask(e) {
             alert('Usuário Logado com sucesso!');
             //retornar para home    
             console.log(res);
-            window.location.href = "http://localhost:5500/";
+            // window.location.href = "http://localhost:5500/";
             localStorage.setItem('token', res['token']);
+            localStorage.setItem('User', JSON.stringify(res['user']));
+            console.log(localStorage.getItem('User'));
         }
     };
 
     xhr.send(JSON.stringify(task));
 
 
+
     // // Reset form-Task
     document.getElementById('form-Task').reset();
      e.preventDefault();
+
 
 }

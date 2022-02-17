@@ -26,12 +26,12 @@ function saveTask(e) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var res = JSON.parse(xhr.response);
             console.log(res);
+            alert('Usuário cadastrado com sucesso!');
         }
     };
 
     xhr.send(JSON.stringify(task));
 
-    alert('Usuário cadastrado com sucesso!');
 
 
 
