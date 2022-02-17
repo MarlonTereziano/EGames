@@ -1,19 +1,52 @@
 document.getElementById('form-Task').addEventListener('submit', saveTask);
+document.getElementById('form-Task-Update').addEventListener('submit', updateTask);
 
 
-function updateTask(schedule) {
-
+function loadTaskToUpdate(schedule, scheduleId) {
+  console.log("update", scheduleId)
   //set local storage schedule
-  //localStorage.setItem('schedule', JSON.stringify(schedule));
+  localStorage.setItem('scheduleId', scheduleId);
   console.log(schedule);
   let auxDate = schedule.split(" ");
         let date = auxDate[0];
         let horario = auxDate[1];
+        let horario2 = horario.split(":");
+        let hora = horario2[0]+":"+horario2[1];
         //change / to -
         let dateFormat = date.split("/");
         let dateFormat2 = dateFormat[2] + "-" + dateFormat[1] + "-" + dateFormat[0];
   document.getElementById("dataUpdate").value = dateFormat2;
-  document.getElementById("horarioUpdate").value = horario;
+  document.getElementById("horarioUpdate").value = hora;
+}
+
+function updateTask(){
+  console.log("update")
+  let data = document.getElementById('dataUpdate').value;
+  let hour = document.getElementById('horarioUpdate').value;
+  let auxData = data + " " + hour
+  console.log(auxData)
+  let scheduleId = localStorage.getItem('scheduleId');
+  var request = new XMLHttpRequest();
+  request.open('PUT', 'http://localhost:3020/schedule/' + scheduleId, true);
+  request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  request.send(JSON.stringify({
+    date: auxData,
+    owner: "5f932006-0024-45ff-b351-04119a2d6de8",
+    status: "Pendente",
+    rival: null
+  }));
+  request.onload = function () {
+    if (request.status >= 200 && request.status < 400) {
+      // Success!
+      var res = JSON.parse(request.response);
+      getTasks();
+
+      //console.log(res);
+    } else {
+      // We reached our target server, but it returned an error
+      console.log('error');
+    }
+  };
 }
 
 
@@ -74,15 +107,7 @@ function deleteTask(scheduleId) {
     console.log("delete")
     // Begin accessing JSON data here
     if (request.status === 204) {
-      var toastTrigger = document.getElementById('liveToastBtn')
-      var toastLiveExample = document.getElementById('liveToast')
-      if (toastTrigger) {
-        toastTrigger.addEventListener('click', function () {
-          var toast = new bootstrap.Toast(toastLiveExample)
-
-          toast.show()
-        })
-      }
+      
       alert("Deletado")
       getTasks();
     } 
@@ -132,7 +157,7 @@ function getTasks() {
               </div>
               <div class="col-sm-15 text-right"  style="z-index:0">
                 <a href="#" onclick="deleteTask('${scheduleId}')" class="btn btn-danger ml-5" style="margin-top:-12%">X</a>
-                <a href="#" onclick="updateTask('${tasks[i].dateConverted}')" class="btn btn-danger ml-2" style="
+                <a href="#" onclick="loadTaskToUpdate('${tasks[i].dateConverted}','${scheduleId}')" class="btn btn-danger ml-2" style="
                 margin-top:-12%; 
                 margin-left:4%;
                 background-color: #2ef3b1d8;
