@@ -3,16 +3,16 @@ document.getElementById('form-Task').addEventListener('submit', saveTask);
 // Save new To-Do
 function saveTask(e) {
 
-  let titulo = document.getElementById('title').value;
-  let categoria = document.getElementById('category').value;
-  let valor = parseInt(document.getElementById('value').value);
-  let tipo = document.getElementById('type').value;
+  let modalidade = document.getElementById('modalidade').value;
+  let id_lider = document.getElementById('id_lider').value;
+  let data= parseInt(document.getElementById('data').value);
+  let horario = document.getElementById('horario').value;
 
   let task = {
-    titulo,
-    valor,
-    tipo,
-    categoria,
+    modalidade,
+    id_lider,
+    data,
+    horario,
   };
 
   // var data = { titulo, valor, tipo, categoria };
@@ -46,17 +46,17 @@ function saveTask(e) {
 
   getTasks();
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/transacao', true);
-    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var res = JSON.parse(xhr.response);
-            console.log(res);
-        }
-    };
+    // var xhr = new XMLHttpRequest();
+    // xhr.open('POST', 'http://localhost:3000/transacao', true);
+    // xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         var res = JSON.parse(xhr.response);
+    //         console.log(res);
+    //     }
+    // };
 
-    xhr.send(JSON.stringify(task));
+    // xhr.send(JSON.stringify(task));
 
 
   console.log("temos isso no task do bd", JSON.stringify(task));
@@ -68,11 +68,11 @@ function saveTask(e) {
 }
 
 // Delete To-Do 
-function deleteTask(titulo) {
+function deleteTask(id_lider) {
 
   let tasks = JSON.parse(localStorage.getItem('tasks'));
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].titulo == titulo) {
+    if (tasks[i].id_lider == id_lider) {
       tasks.splice(i, 1);
     }
   }
@@ -120,10 +120,12 @@ function getTasks() {
 
 
   for (let i = 0; i < tasks.length; i++) {
-    let titulo = tasks[i].titulo;
-    let categoria = tasks[i].categoria;
-    let valor = parseInt(tasks[i].valor);
-    let tipo = tasks[i].tipo;
+    let modalidade = tasks[i].modalidade;
+    let data = tasks[i].data;
+    let id_lider = tasks[i].id_lider;
+    let horario = tasks[i].horario;
+
+    console.log();
 
     // var xhr = new XMLHttpRequest();
 
@@ -138,6 +140,8 @@ function getTasks() {
 
     // xhr.send(JSON.stringify(task));
 
+    console.log(modalidade, data, id_lider, horario);
+
 
     // console.log("temos isso no task do bd", JSON.stringify(task));
 
@@ -146,19 +150,27 @@ function getTasks() {
         <div class="card-body">
         <div class="row">
           <div class="col-sm-3 text-left">
-            <p>${titulo}</p>
+            <p>${modalidade}</p>
           </div>
           <div class="col-sm-3 text-left"  style="margin-left:-1%">
-            <p>${categoria}</p>
+            <p>${data}</p>
           </div>
           <div class="col-sm-3 text-left"  style="margin-left:-1%; z-index:0">
-            <p>${valor}</p>
+            <p>${id_lider}</p>
           </div>
           <div class="col-sm-3 text-left" style="margin-left:-1%; width:30px;">
-            <p>${tipo}</p>
-          </div>
+             <p background-color="red">${horario}</p>
+           </div>
           <div class="col-sm-15 text-right"  style="z-index:0">
-            <a href="#" onclick="deleteTask('${titulo}')" class="btn btn-danger ml-5" style="margin-top:-12%">X</a>
+            <a href="#" onclick="deleteTask('${id_lider}')" class="btn btn-danger ml-5" style="margin-top:-12%">X</a>
+            <a href="#" onclick="deleteTask('${id_lider}')" class="btn btn-danger ml-2" style="
+            margin-top:-12%; 
+            margin-left:4%;
+            background-color: #2ef3b1d8;
+            color:black; 
+            border-color:#2ef3b1d8">
+            <img src="/assets/pencil.svg" alt="" style="width: 100%">
+            </a>
           </div>
         </div>  
        </div>

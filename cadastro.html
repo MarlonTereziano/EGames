@@ -18,7 +18,7 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
               <img src="/assets/logo.png" alt="" style="width: 15%">
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left:5%">
-                    <li><a href="#"  class="nav-link px-2 text-white">Home</a></li>
+                    <li><a href="/"  class="nav-link px-2 text-white">Home</a></li>
                     <!-- <li><a href="/contato.html" class="nav-link px-2 text-white">Contato</a></li> -->
                 </ul>
 <!-- 
@@ -28,8 +28,8 @@
                 </form> -->
 
                 <div class="text-end">
-                  <a href="/login.html"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
-                  <a href="/cadastro.html"><button type="button" class="btn btn-warning" style="background-color: #2ef3b1d8; border-color: transparent;">Cadastro</button></a>
+                    <a href="/login.html"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+                    <a href="/cadastro.html"><button type="button" class="btn btn-warning" style="background-color: #2ef3b1d8; border-color: transparent;">Cadastro</button></a>
                 </div> 
             </div>
         </div>
@@ -37,62 +37,49 @@
     
   <nav class="navbar navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">Agendamento de treinos</a>
+      <a class="navbar-brand" href="/cadastro.html">Cadastro</a>
     </div>
   </nav>
   <div class="container">
-    <div class="row my-5">
-      <div class="col-md-4">
+    <div class="row my-5" style="display:flex; align-items:center; justify-content: center">
+      <div class="col-md-4" >
         <div class="card">
           <div class="card-body">
             <form id="form-Task">
               <div class="form-group">
-                <select class="form-select" id="modalidade" aria-label="Default select example">
-                    <option selected>Modalidade</option>
-                    <option value="csgo">Counter-Strike GO</option>
-                    <option value="lol">League of Legends</option>
-                    <option value="dota">Dota</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                <input type="number" id="id_lider" class="form-control" maxlength="50" autocomplete="off" placeholder="ID do líder"
+                <input type="text" id="name" class="form-control" maxlength="50" autocomplete="off" placeholder="Nome"
                   required>
               </div>
               <div class="form-group">
-                <input type="date" id="data" class="form-control" maxlength="50" autocomplete="off" placeholder="Data do agendamento"
+                <input type="text" id="lastName" class="form-control" maxlength="50" autocomplete="off" placeholder="Sobrenome"
                   required>
               </div>
               <div class="form-group">
-                <input type="time" id="horario" class="form-control" maxlength="50" autocomplete="off" placeholder="Horario"
+                <input type="password" id="password" class="form-control" maxlength="50" autocomplete="off" placeholder="Senha"
                   required>
               </div>
-              <button type="submit" class="btn btn-success btn-block"  style="background-color: #2ef3b1d8; color:black; border-color:transparent">Agendar</button>
+              <div class="form-group">
+                <input type="text" id="team" class="form-control" maxlength="50" autocomplete="off" placeholder="Time"
+                  required>
+              </div>
+              <div class="form-group">
+                <input type="text" id="acronym" class="form-control" maxlength="50" autocomplete="off" placeholder="Sigla"
+                  required>
+              </div>
+              <div class="form-group">
+                <input type="email" id="email" class="form-control" maxlength="50" autocomplete="off" placeholder="Email"
+                  required>
+              </div>
+              <button type="submit" class="btn btn-success btn-block"  style="background-color: #2ef3b1d8; color:black; border-color:transparent">Cadastrar</button>
             </form>
           </div>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col-sm-3 text-left">
-            <p class="font-weight-bold">Modalidade</p>
-          </div>
-          <div class="col-sm-3 text-left" >
-            <p class="font-weight-bold">Data</p>
-          </div>
-          <div class="col-sm-3 text-left"  style="margin-left:-4%">
-            <p class="font-weight-bold">Horário</p>
-          </div>
-          <div class="col-sm-2 text-left">
-            <p class="font-weight-bold">Editar</p>
-          </div>
-        </div>
-        <hr>
-        <div id="tasks"></div>
-      </div>
+    
     </div>
   </div>
 
-  <script src="./app.js"></script>
+  <script src="./cadastro.js"></script>
 
 </body>
 
