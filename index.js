@@ -20,6 +20,8 @@ function loadTaskToUpdate(schedule, scheduleId) {
 }
 
 function updateTask(){
+  let token = localStorage.getItem('token');
+
   console.log("update")
   let data = document.getElementById('dataUpdate').value;
   let hour = document.getElementById('horarioUpdate').value;
@@ -29,6 +31,8 @@ function updateTask(){
   var request = new XMLHttpRequest();
   request.open('PUT', 'http://localhost:3020/schedule/' + scheduleId, true);
   request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  request.setRequestHeader('Authorization', 'Bearer ' + token);
+  
   request.send(JSON.stringify({
     date: auxData,
     owner: "5f932006-0024-45ff-b351-04119a2d6de8",
@@ -52,6 +56,8 @@ function updateTask(){
 
 
 function saveTask(e) {
+  let token = localStorage.getItem('token');
+
   let data = document.getElementById('data').value;
   let hour = document.getElementById('horario').value;
   let user = JSON.parse(localStorage.getItem('User'));
@@ -60,6 +66,8 @@ function saveTask(e) {
   var request = new XMLHttpRequest();
   request.open('POST', 'http://localhost:3020/schedule', true);
   request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  request.setRequestHeader('Authorization', 'Bearer ' + token);
+  
   request.send(JSON.stringify({
     date: data + " " + hour,
     owner: owner_id,
@@ -101,9 +109,13 @@ function saveTask(e) {
 
 function deleteTask(scheduleId) {
   console.log(scheduleId);
+  let token = localStorage.getItem('token');
+
   var request = new XMLHttpRequest();
   request.open('DELETE', 'http://localhost:3020/schedule/' + scheduleId, true);
   request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  request.setRequestHeader('Authorization', 'Bearer ' + token);
+
   request.send();
   request.onload = function () {
     console.log("delete")
@@ -118,11 +130,17 @@ function deleteTask(scheduleId) {
 
 
 function acceptTask(scheduleId) {
+  console.log("acceptTask")
+  let token = localStorage.getItem('token');
+  
   var request = new XMLHttpRequest();
   let user = JSON.parse(localStorage.getItem('User'));
 
   request.open('PUT', 'http://localhost:3020/schedule/' + scheduleId, true);
   request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+  request.setRequestHeader('Authorization', 'Bearer ' + token);
+
   request.send(JSON.stringify({
     status: "Aceito",
     rival: user.id
@@ -142,16 +160,20 @@ function acceptTask(scheduleId) {
 
 }
 function getTasks() {
-
+  let token = localStorage.getItem('token');
+  console.log(token);
   let tasks = [];
   let tasksView = document.getElementById('tasks');
   tasksView.innerHTML = '';
   var request = new XMLHttpRequest();   
   request.open('GET', 'http://localhost:3020/schedule', true);
-  request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+  //'"Content-Type", "application/json; charset=UTF-8", Authorization': 'Bearer <token>'
+  request.setRequestHeader('Authorization', 'Bearer ' + token);
+
+  
   request.send();
   request.onload  = function () {
-    console.log("get")
     if (request.status === 200) {
       tasks =  JSON.parse(request.response);
       //get user id localStorage
@@ -242,7 +264,7 @@ function getTasks() {
                 <p>${status}</p>
               </div>
               <div class="col-sm-15 text-right"  style="z-index:0">
-                <a href="#" onclick="acceptTask('${scheduleId}')" class="btn btn-danger ml-5" style="margin-top:-12%">Aceitar</a>                
+                <a  onclick="acceptTask('${scheduleId}')" class="btn btn-danger ml-5" style="margin-top:-12%">Aceitar</a>                
               </div>
             </div>  
           </div>

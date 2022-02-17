@@ -1,6 +1,6 @@
 document.getElementById('form-Task').addEventListener('submit', saveTask);
 
-// Save new To-Do
+
 function saveTask(e) {
 
     let password = document.getElementById('password').value;
