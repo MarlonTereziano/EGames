@@ -5,6 +5,7 @@ function saveTask(e) {
 
     let password = document.getElementById('password').value;
     let email = document.getElementById('email').value;
+    let aux=false;
 
     let task = {
         password,
@@ -14,26 +15,27 @@ function saveTask(e) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:3020/sessions', true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
+    xhr.onload = function () {
+        if (xhr.status === 200){
+            aux=true;
             var res = JSON.parse(xhr.response);
-            alert('Usuário Logado com sucesso!');
-            //retornar para home    
+            alert('Usuário Logado com sucesso!');   
             console.log(res);
             window.location.href = "http://localhost:5500/";
             localStorage.setItem('token', res['token']);
             localStorage.setItem('User', JSON.stringify(res['user']));
             console.log(localStorage.getItem('User'));
+        }else{
+            alert('E-mail ou senha Incorretos!');
         }
+    
     };
 
     xhr.send(JSON.stringify(task));
 
 
-
-    // // Reset form-Task
     document.getElementById('form-Task').reset();
-     e.preventDefault();
+    e.preventDefault();
 
 
 }
